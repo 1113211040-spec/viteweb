@@ -11,18 +11,49 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     
     <style>
-        body { font-family: 'Noto Sans TC', sans-serif; }
+        body { font-family: 'Noto Sans TC', sans-serif; background-color: #f8f9fa; scroll-behavior: smooth; }
+        .navbar { background-color: #1a1a1a !important; }
         .section-title { border-bottom: 3px solid #dc3545; display: inline-block; padding-bottom: 5px; margin-bottom: 30px; }
-        .hover-card { transition: transform 0.3s; }
-        .hover-card:hover { transform: translateY(-10px); }
-        .navbar-brand { letter-spacing: 1px; }
-        /* Đảm bảo ảnh hiển thị đều */
+        .hover-card { transition: transform 0.3s; border: none; border-radius: 15px; overflow: hidden; }
+        .hover-card:hover { transform: translateY(-10px); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
         .card-img-top { height: 250px; object-fit: cover; }
+        .hero-section {
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+                        url('https://images.unsplash.com/photo-1501703979959-797917eb21c8?q=80&w=1600&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+        }
+
+        /* --- Cấu hình kích thước ảnh đồng nhất cho Album --- */
+        .gallery-container {
+            aspect-ratio: 3 / 2; /* Cố định tỉ lệ 3:2 */
+            overflow: hidden;
+            border-radius: 12px;
+            position: relative;
+        }
+
+        .gallery-img-uniform {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Đảm bảo ảnh lấp đầy khung mà không biến dạng */
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-container:hover .gallery-img-uniform {
+            transform: scale(1.1);
+        }
     </style>
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top shadow">
+<!-- Thanh điều hướng (Navbar) -->
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top shadow">
     <div class="container">
         <a class="navbar-brand fw-bold" href="#"><i class="fas fa-motorcycle"></i> 台灣機車王國 🇹🇼</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -39,98 +70,114 @@
     </div>
 </nav>
 
-<header id="home" class="mt-5">
-    <div id="motoCarousel" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <img src="./src/images/banner1.jpg" class="d-block w-100" style="height: 500px; object-fit: cover;" alt="Taiwan Moto">
-                <div class="carousel-caption">
-                    <h2 class="display-4 fw-bold text-warning">台灣機車文化</h2>
-                    <p class="fs-4">全球機車密度最高的島嶼，便捷生活的核心。</p>
-                </div>
-            </div>
-        </div>
+<!-- Khu vực tiêu điểm (Hero Section) -->
+<header id="home" class="hero-section mt-5">
+    <div class="container">
+        <h1 class="display-3 fw-bold text-warning">台灣機車文化</h1>
+        <p class="fs-4">便捷生活的核心，全球密度最高的機車島嶼。</p>
+        <a href="#models" class="btn btn-danger btn-lg mt-3">探索熱門車款</a>
     </div>
 </header>
 
+<!-- Giới thiệu (About) -->
 <section id="about" class="container my-5 py-5 text-center">
     <h2 class="text-danger section-title"><i class="fas fa-info-circle"></i> 產業簡介</h2>
-    <p class="lead">台灣的機車產業歷史悠久，擁有自主研發能力。從早期的代工到如今創立國際品牌如 SYM（三陽）與 KYMCO（光陽），機車已成為台灣人日常生活中不可或缺的一部分。</p>
+    <p class="lead px-md-5">台灣機車產業發展超過 60 年，從早期的組裝零件到擁有世界級品牌 SYM (三陽) 與 KYMCO (光陽)。不僅是上下班的通勤工具，更是展現個性與自由的象徵。</p>
 </section>
 
-<section id="stats" class="bg-light py-5">
+<!-- Dữ liệu thị trường (Stats) -->
+<section id="stats" class="bg-dark text-white py-5">
     <div class="container text-center">
-        <h2 class="text-danger section-title">市場驚人數據</h2>
-        <div class="row g-4">
+        <h2 class="text-warning section-title">市場驚人數據</h2>
+        <div class="row g-4 mt-2">
             <div class="col-6 col-md-3">
-                <div class="p-4 bg-white shadow-sm rounded">
-                    <i class="fas fa-motorcycle fa-3x text-danger mb-3"></i>
-                    <h3 class="fw-bold">1400 萬</h3>
-                    <p class="text-muted">全台機車總數</p>
-                </div>
+                <i class="fas fa-users fa-3x text-danger mb-3"></i>
+                <h3 class="fw-bold">1,400 萬</h3>
+                <p>機車登記總數</p>
             </div>
             <div class="col-6 col-md-3">
-                <div class="p-4 bg-white shadow-sm rounded">
-                    <i class="fas fa-gas-pump fa-3x text-danger mb-3"></i>
-                    <h3 class="fw-bold">2500+</h3>
-                    <p class="text-muted">加油站與換電站</p>
-                </div>
+                <i class="fas fa-map-marked-alt fa-3x text-danger mb-3"></i>
+                <h3 class="fw-bold">高密度</h3>
+                <p>每100人有60台</p>
             </div>
             <div class="col-6 col-md-3">
-                <div class="p-4 bg-white shadow-sm rounded">
-                    <i class="fas fa-bolt fa-3x text-danger mb-3"></i>
-                    <h3 class="fw-bold">Gogoro</h3>
-                    <p class="text-muted">電動機車首選</p>
-                </div>
+                <i class="fas fa-charging-station fa-3x text-danger mb-3"></i>
+                <h3 class="fw-bold">2,500+</h3>
+                <p>智慧換電站</p>
             </div>
             <div class="col-6 col-md-3">
-                <div class="p-4 bg-white shadow-sm rounded">
-                    <i class="fas fa-globe-asia fa-3x text-danger mb-3"></i>
-                    <h3 class="fw-bold">100+</h3>
-                    <p class="text-muted">行銷國家數</p>
-                </div>
+                <i class="fas fa-trophy fa-3x text-danger mb-3"></i>
+                <h3 class="fw-bold">世界第一</h3>
+                <p>速克達出口國</p>
             </div>
         </div>
     </div>
 </section>
 
+<!-- Đề xuất xe hot (Models) -->
 <section id="models" class="container py-5">
     <h2 class="text-center text-danger section-title d-block mx-auto" style="width: fit-content;">熱門推薦車款</h2>
     <div class="row g-4">
         <div class="col-12 col-md-4">
             <div class="card h-100 shadow-sm hover-card">
-                <img src="./src/images/sym-drg.jpg" class="card-img-top" alt="SYM DRG">
+                <img src="https://images.unsplash.com/photo-1558981806-ec527fa84c39?q=80&w=600&auto=format&fit=crop" class="card-img-top" alt="SYM Scooter">
                 <div class="card-body text-center">
-                    <h5 class="fw-bold">SYM DRG BT</h5>
-                    <p class="card-text text-muted">結合龍的設計元素，強悍性能與極致操控的代表作。</p>
+                    <h5 class="fw-bold">SYM 三陽機車</h5>
+                    <p class="card-text text-muted">以 DRG 與 MMBCU 領軍，結合極致性能與跑旅風格。</p>
                 </div>
             </div>
         </div>
         <div class="col-12 col-md-4">
             <div class="card h-100 shadow-sm hover-card">
-                <img src="./src/images/kymco-ak.jpg" class="card-img-top" alt="KYMCO">
+                <img src="https://images.unsplash.com/photo-1591637333184-19aa84b3e01f?q=80&w=600&auto=format&fit=crop" class="card-img-top" alt="KYMCO Scooter">
                 <div class="card-body text-center">
-                    <h5 class="fw-bold">KYMCO AK550</h5>
-                    <p class="card-text text-muted">紅牌旗艦跑旅，豪華配置與卓越動力兼具。</p>
+                    <h5 class="fw-bold">KYMCO 光陽機車</h5>
+                    <p class="card-text text-muted">旗艦跑旅 AK550 展現全球級的造車技術與舒適性。</p>
                 </div>
             </div>
         </div>
         <div class="col-12 col-md-4">
             <div class="card h-100 shadow-sm hover-card">
-                <img src="./src/images/gogoro.jpg" class="card-img-top" alt="Gogoro">
+                <img src="https://images.unsplash.com/photo-1622185135505-2d795003994a?q=80&w=600&auto=format&fit=crop" class="card-img-top" alt="Electric Scooter">
                 <div class="card-body text-center">
-                    <h5 class="fw-bold">Gogoro VIVA</h5>
-                    <p class="card-text text-muted">智慧電動車首選，便利的換電系統改變通勤習慣。</p>
+                    <h5 class="fw-bold">Gogoro 智慧電動車</h5>
+                    <p class="card-text text-muted">領先全球的換電科技，引領綠能通勤的新時代。</p>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<footer class="bg-dark text-white text-center py-4 mt-5">
+<!-- Album ảnh đời sống (Gallery) - Cập nhật link ảnh mới ổn định hơn -->
+<section id="gallery" class="container py-5 mb-5">
+    <h2 class="text-center text-danger section-title d-block mx-auto" style="width: fit-content;">車友生活相簿</h2>
+    <div class="row g-3">
+        <!-- Ảnh 1 -->
+        <div class="col-6 col-md-4">
+            <div class="gallery-container shadow-sm">
+                <img src="https://images.unsplash.com/photo-1558981403-c5f9899a28bc?q=80&w=800&auto=format&fit=crop" class="gallery-img-uniform" alt="Moto Life 1">
+            </div>
+        </div>
+        <!-- Ảnh 2 -->
+        <div class="col-6 col-md-4">
+            <div class="gallery-container shadow-sm">
+                <img src="https://images.unsplash.com/photo-1591637333184-19aa84b3e01f?q=80&w=800&auto=format&fit=crop" class="gallery-img-uniform" alt="Moto Life 2">
+            </div>
+        </div>
+        <!-- Ảnh 3: Thay thế bằng link ảnh xe máy mới cực kỳ ổn định -->
+        <div class="col-6 col-md-4">
+            <div class="gallery-container shadow-sm">
+                <img src="https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?q=80&w=800&auto=format&fit=crop" class="gallery-img-uniform" alt="Moto Life 3">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Chân trang (Footer) -->
+<footer class="bg-dark text-white text-center py-4">
     <div class="container">
         <p class="mb-1 fw-bold">© 2026 台灣機車文化專題</p>
-        <p class="mb-0">學生學號：1113211502 | 響應式網頁設計作業</p>
+        <p class="mb-0">學號：1113211040 | 響應式網頁設計作業</p>
     </div>
 </footer>
 
